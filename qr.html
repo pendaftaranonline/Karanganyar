@@ -4,230 +4,262 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>QRIS Payment Gateway</title>
+<title>Secure QRIS Payment</title>
 
 <style>
+:root{
+    --glow:#00ffd0;
+    --bg:#000000;
+    --text:#ffffff;
+    --muted:#9a9a9a;
+}
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    font-family:Segoe UI, Arial, sans-serif;
 }
 
 body{
+    background:var(--bg);
+    color:var(--text);
     min-height:100vh;
-    background:#000;
+    overflow:hidden;
     display:flex;
     justify-content:center;
     align-items:center;
-    color:#fff;
-    overflow:hidden;
 }
 
-.container{
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at center,
+    rgba(0,255,208,.08) 0%,
+    rgba(0,255,208,.03) 15%,
+    transparent 50%);
+    pointer-events:none;
+}
+
+.wrapper{
     width:100%;
-    max-width:650px;
-    padding:25px;
+    max-width:900px;
     text-align:center;
+    padding:20px;
 }
 
 /* TIMER */
 
-.timer-box{
-    margin-bottom:30px;
-}
-
 .timer-label{
-    font-size:14px;
-    letter-spacing:2px;
-    color:#bdbdbd;
-    margin-bottom:10px;
+    font-size:12px;
+    letter-spacing:4px;
     text-transform:uppercase;
+    color:#8d8d8d;
+    margin-bottom:12px;
 }
 
-#countdown{
-    font-size:64px;
+#timer{
+    font-size:68px;
     font-weight:900;
-    color:#00ff9d;
+    line-height:1;
+    color:var(--glow);
+
     text-shadow:
-    0 0 10px #00ff9d,
-    0 0 20px #00ff9d,
-    0 0 40px #00ff9d,
-    0 0 60px #00ff9d;
+    0 0 8px var(--glow),
+    0 0 18px var(--glow),
+    0 0 35px var(--glow),
+    0 0 60px var(--glow);
+
+    margin-bottom:50px;
 }
 
-/* CARD */
+/* QR AREA */
 
-.payment-card{
-    background:rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.08);
-    border-radius:28px;
-    padding:35px;
-    backdrop-filter:blur(10px);
+.qr-box{
+    width:280px;
+    margin:auto;
+    position:relative;
+}
+
+.qr-glow{
+    border-radius:26px;
+    padding:14px;
+    background:#fff;
+
     box-shadow:
-    0 0 30px rgba(0,255,170,.15),
-    0 0 60px rgba(0,255,170,.08);
+    0 0 15px var(--glow),
+    0 0 35px var(--glow),
+    0 0 80px rgba(0,255,208,.45);
+
+    animation:pulse 3s infinite ease-in-out;
 }
+
+.qr-glow img{
+    width:100%;
+    display:block;
+    border-radius:16px;
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        box-shadow:
+        0 0 15px var(--glow),
+        0 0 35px var(--glow),
+        0 0 80px rgba(0,255,208,.45);
+    }
+
+    50%{
+        box-shadow:
+        0 0 25px var(--glow),
+        0 0 60px var(--glow),
+        0 0 120px rgba(0,255,208,.65);
+    }
+}
+
+/* TITLE */
 
 .title{
-    font-size:28px;
+    margin-top:35px;
+    font-size:30px;
     font-weight:800;
-    margin-bottom:8px;
+    letter-spacing:.5px;
 }
 
 .subtitle{
-    color:#bfbfbf;
-    margin-bottom:30px;
-}
-
-/* QR FRAME */
-
-.qr-frame{
-    width:320px;
-    max-width:100%;
-    margin:auto;
-    padding:18px;
-    border-radius:25px;
-    background:#fff;
-    position:relative;
-
-    box-shadow:
-    0 0 20px #00ffcc,
-    0 0 40px #00ffcc,
-    0 0 80px rgba(0,255,204,.8),
-    0 0 120px rgba(0,255,204,.4);
-}
-
-.qr-frame img{
-    width:100%;
-    display:block;
-    border-radius:15px;
-}
-
-/* INFO */
-
-.info{
-    margin-top:28px;
-    text-align:left;
-    color:#d8d8d8;
-    line-height:1.8;
-}
-
-.info h3{
-    color:#00ffcc;
-    margin-bottom:12px;
-    text-align:center;
-}
-
-.info ul{
-    padding-left:20px;
-}
-
-.info li{
-    margin-bottom:8px;
+    margin-top:10px;
+    color:#b8b8b8;
+    font-size:15px;
 }
 
 /* BUTTON */
 
 #paidBtn{
     display:none;
-    margin-top:25px;
-    padding:16px 28px;
+    margin-top:28px;
     border:none;
-    border-radius:14px;
     cursor:pointer;
-    font-size:16px;
+
+    padding:15px 28px;
+    border-radius:14px;
+
+    font-size:15px;
     font-weight:700;
+
     color:#000;
-    background:#00ff9d;
+    background:var(--glow);
 
     box-shadow:
-    0 0 15px #00ff9d,
-    0 0 30px #00ff9d;
+    0 0 12px var(--glow),
+    0 0 25px var(--glow);
 
-    transition:.3s;
+    transition:.25s;
 }
 
 #paidBtn:hover{
     transform:translateY(-2px);
 }
 
-.footer-note{
-    margin-top:18px;
-    font-size:13px;
-    color:#8f8f8f;
+/* GUIDE */
+
+.guide{
+    margin-top:45px;
+    max-width:620px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:left;
 }
 
-@media(max-width:600px){
+.guide-title{
+    text-align:center;
+    color:var(--glow);
+    font-weight:700;
+    margin-bottom:18px;
+}
 
-    #countdown{
-        font-size:50px;
+.guide ul{
+    color:#d0d0d0;
+    line-height:1.8;
+    padding-left:20px;
+}
+
+.guide li{
+    margin-bottom:6px;
+}
+
+.note{
+    margin-top:25px;
+    color:#888;
+    font-size:12px;
+    text-align:center;
+}
+
+@media(max-width:768px){
+
+    #timer{
+        font-size:52px;
+        margin-bottom:35px;
     }
 
-    .payment-card{
-        padding:25px;
+    .qr-box{
+        width:240px;
     }
 
     .title{
-        font-size:22px;
+        font-size:24px;
     }
 }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="wrapper">
 
-    <div class="timer-box">
-        <div class="timer-label">
-            Batas Waktu Pembayaran
-        </div>
-
-        <div id="countdown">
-            30
-        </div>
+    <div class="timer-label">
+        BATAS WAKTU PEMBAYARAN
     </div>
 
-    <div class="payment-card">
+    <div id="timer">30</div>
 
-        <div class="title">
-            Secure QRIS Payment
-        </div>
+    <div class="qr-box">
 
-        <div class="subtitle">
-            Silakan lakukan pembayaran dengan memindai kode QR di bawah ini.
-        </div>
-
-        <div class="qr-frame">
+        <div class="qr-glow">
             <img src="qris.png" alt="QRIS Payment">
         </div>
 
-        <button id="paidBtn">
-            ✅ Saya Telah Melakukan Pembayaran
-        </button>
+    </div>
 
-        <div class="info">
-            <h3>Petunjuk Pembayaran QRIS</h3>
+    <div class="title">
+        Secure QRIS Payment
+    </div>
 
-            <ul>
-                <li>Buka aplikasi Mobile Banking, E-Wallet, atau aplikasi yang mendukung QRIS.</li>
+    <div class="subtitle">
+        Scan QR Code menggunakan aplikasi perbankan atau e-wallet yang mendukung QRIS.
+    </div>
 
-                <li>Pilih menu <b>Scan QR / QRIS Payment</b>.</li>
+    <button id="paidBtn">
+        ✅ Saya Telah Melakukan Pembayaran
+    </button>
 
-                <li>Arahkan kamera ke kode QR yang ditampilkan pada halaman ini.</li>
+    <div class="guide">
 
-                <li>Periksa nominal pembayaran yang muncul pada aplikasi Anda.</li>
-
-                <li>Pastikan data transaksi telah sesuai sebelum melanjutkan pembayaran.</li>
-
-                <li>Masukkan PIN atau metode verifikasi yang diminta oleh aplikasi pembayaran Anda.</li>
-
-                <li>Setelah transaksi berhasil, klik tombol <b>“Saya Telah Melakukan Pembayaran”</b>.</li>
-            </ul>
+        <div class="guide-title">
+            Petunjuk Pembayaran
         </div>
 
-        <div class="footer-note">
-            Sistem akan menutup sesi pembayaran secara otomatis apabila batas waktu berakhir.
+        <ul>
+            <li>Buka aplikasi Mobile Banking atau E-Wallet yang mendukung QRIS.</li>
+            <li>Pilih menu Scan QR / QRIS.</li>
+            <li>Arahkan kamera ke kode QR yang ditampilkan.</li>
+            <li>Pastikan nominal dan informasi pembayaran telah sesuai.</li>
+            <li>Konfirmasi transaksi menggunakan PIN atau metode verifikasi yang tersedia.</li>
+            <li>Setelah pembayaran berhasil, klik tombol "Saya Telah Melakukan Pembayaran".</li>
+        </ul>
+
+        <div class="note">
+            Sistem akan mengakhiri sesi pembayaran secara otomatis apabila batas waktu berakhir.
         </div>
 
     </div>
@@ -235,31 +267,43 @@ body{
 </div>
 
 <script>
-let timeLeft = 30;
+let seconds = 30;
 
-const countdown = document.getElementById("countdown");
+const timer = document.getElementById("timer");
 const paidBtn = document.getElementById("paidBtn");
 
-const timer = setInterval(() => {
+const countdown = setInterval(() => {
 
-    timeLeft--;
+    seconds--;
 
-    countdown.textContent = timeLeft;
+    timer.textContent = seconds;
 
-    if(timeLeft <= 10){
+    if(seconds <= 10){
         paidBtn.style.display = "inline-block";
     }
 
-    if(timeLeft <= 0){
-        clearInterval(timer);
+    if(seconds <= 10){
+        timer.style.color = "#ffcc00";
+        timer.style.textShadow =
+        "0 0 8px #ffcc00, 0 0 18px #ffcc00, 0 0 35px #ffcc00";
+    }
+
+    if(seconds <= 5){
+        timer.style.color = "#ff3b3b";
+        timer.style.textShadow =
+        "0 0 8px #ff3b3b, 0 0 18px #ff3b3b, 0 0 35px #ff3b3b";
+    }
+
+    if(seconds <= 0){
+        clearInterval(countdown);
         window.location.href = "failed.html";
     }
 
 },1000);
 
-paidBtn.addEventListener("click",function(){
+paidBtn.addEventListener("click", () => {
 
-    if(document.referrer){
+    if(window.history.length > 1){
         history.back();
     }else{
         window.location.href = "index.html";
