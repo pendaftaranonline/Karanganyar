@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MITRA SWALAYAN KARANGANYAR RUN 2026</title>
 
-<meta name="description" content="MITRA SWALAYAN KARANGANYAR RUN 2026 - Fun Run 5K Anniversary Event">
+<meta name="description" content="MITRA SWALAYAN KARANGANYAR RUN 2026">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -20,15 +23,17 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 background:#0f172a;
 color:white;
 overflow-x:hidden;
 }
 
-a{
-text-decoration:none;
-}
+/* HERO */
 
 .hero{
 position:relative;
@@ -43,7 +48,7 @@ padding:30px;
 content:'';
 position:absolute;
 inset:0;
-background:url('assets/banner.png') center center/cover;
+background:url('banner.png') center center/cover no-repeat;
 filter:brightness(.25);
 z-index:-2;
 }
@@ -66,16 +71,16 @@ max-width:1200px;
 margin:auto;
 }
 
-.logo{
-    max-width:420px;
-    width:100%;
-    height:auto;
-    display:block;
-    margin:0 auto 20px;
-}
-
 .hero-content{
 text-align:center;
+}
+
+.logo{
+max-width:420px;
+width:100%;
+height:auto;
+display:block;
+margin:0 auto 25px;
 }
 
 .hero h1{
@@ -132,6 +137,7 @@ background:linear-gradient(
 color:white;
 font-weight:700;
 font-size:18px;
+text-decoration:none;
 box-shadow:
 0 0 20px rgba(249,115,22,.5),
 0 0 40px rgba(249,115,22,.3);
@@ -142,6 +148,8 @@ transition:.3s;
 transform:translateY(-3px);
 }
 
+/* SECTION */
+
 .section{
 padding:80px 20px;
 }
@@ -149,8 +157,18 @@ padding:80px 20px;
 .section-title{
 text-align:center;
 font-size:40px;
-margin-bottom:50px;
 font-weight:800;
+margin-bottom:50px;
+}
+
+.info-box{
+background:#1e293b;
+padding:30px;
+border-radius:20px;
+}
+
+.info-box p{
+margin-bottom:10px;
 }
 
 .card-grid{
@@ -171,28 +189,24 @@ margin-bottom:10px;
 color:#facc15;
 }
 
-.info-box{
-background:#1e293b;
-padding:30px;
-border-radius:20px;
-margin-top:20px;
-}
-
-.info-box p{
-margin-bottom:10px;
-}
-
 .footer{
 padding:30px;
 text-align:center;
 background:#020617;
 color:#94a3b8;
+margin-top:40px;
 }
+
+/* MOBILE */
 
 @media(max-width:768px){
 
 .hero h1{
-font-size:38px;
+font-size:36px;
+}
+
+.hero p{
+font-size:16px;
 }
 
 .time-box{
@@ -207,25 +221,42 @@ font-size:28px;
 font-size:30px;
 }
 
+.logo{
+max-width:280px;
+}
+
 }
 
 </style>
+
 </head>
+
 <body>
 
-<div class="logo-container">
-    <img src="logo.png" alt="MITRA SWALAYAN KARANGANYAR RUN 2026" class="logo">
-</div>
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-content">
+
+<img
+src="logo.png"
+alt="MITRA SWALAYAN KARANGANYAR RUN 2026"
+class="logo">
 
 <h1>
+
 MITRA SWALAYAN<br>
 KARANGANYAR RUN 2026
+
 </h1>
 
 <p>
+
 Rayakan Anniversary Mitra Swalayan Karanganyar
 dengan pengalaman Fun Run 5K yang seru,
 sehat, dan penuh hadiah menarik.
+
 </p>
 
 <div class="countdown">
@@ -253,7 +284,9 @@ sehat, dan penuh hadiah menarik.
 </div>
 
 <a href="form.html" class="btn-register">
+
 DAFTAR SEKARANG
+
 </a>
 
 </div>
@@ -267,7 +300,9 @@ DAFTAR SEKARANG
 <div class="container">
 
 <h2 class="section-title">
+
 DETAIL ACARA
+
 </h2>
 
 <div class="info-box">
@@ -293,7 +328,9 @@ DETAIL ACARA
 <div class="container">
 
 <h2 class="section-title">
+
 BENEFIT PESERTA
+
 </h2>
 
 <div class="card-grid">
@@ -309,13 +346,13 @@ BENEFIT PESERTA
 </div>
 
 <div class="card">
-<h3>🔢 BIB Number</h3>
+<h3>🔢 Nomor BIB</h3>
 <p>Nomor peserta resmi.</p>
 </div>
 
 <div class="card">
 <h3>🎁 Goodie Bag</h3>
-<p>Berbagai merchandise menarik.</p>
+<p>Merchandise menarik dari sponsor.</p>
 </div>
 
 <div class="card">
@@ -325,7 +362,7 @@ BENEFIT PESERTA
 
 <div class="card">
 <h3>🚰 Water Station</h3>
-<p>Titik air minum selama rute berlangsung.</p>
+<p>Tersedia di sepanjang rute.</p>
 </div>
 
 </div>
@@ -339,7 +376,9 @@ BENEFIT PESERTA
 <div class="container">
 
 <h2 class="section-title">
+
 DOORPRIZE MENARIK
+
 </h2>
 
 <div class="card-grid">
@@ -369,31 +408,29 @@ const targetDate = new Date(
 "September 20, 2026 06:15:00"
 ).getTime();
 
-setInterval(() => {
+setInterval(()=>{
 
 const now = new Date().getTime();
 
 const distance = targetDate - now;
 
-const days =
-Math.floor(distance / (1000*60*60*24));
+const days = Math.floor(
+distance / (1000*60*60*24)
+);
 
-const hours =
-Math.floor(
+const hours = Math.floor(
 (distance % (1000*60*60*24))
 /
 (1000*60*60)
 );
 
-const minutes =
-Math.floor(
+const minutes = Math.floor(
 (distance % (1000*60*60))
 /
 (1000*60)
 );
 
-const seconds =
-Math.floor(
+const seconds = Math.floor(
 (distance % (1000*60))
 /
 1000
