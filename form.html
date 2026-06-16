@@ -9,7 +9,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
 
 /* ===== FINALL UPGRADE V2 ===== */
 const STORAGE_KEY='run2026_form';
@@ -55,45 +56,6 @@ document.getElementById('wa').setAttribute('inputmode','numeric');
 <script>
 emailjs.init("YOUR_PUBLIC_KEY");
 
-
-/* ===== FINALL UPGRADE V2 ===== */
-const STORAGE_KEY='run2026_form';
-function saveFormData(){
- const data={};
- ['nama','jk','tempat','tanggal','identitas','noidentitas','email','wa','alamat','kategori','bib','size'].forEach(id=>{
-  const el=document.getElementById(id); if(el) data[id]=el.value;
- });
- localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
-}
-function loadFormData(){
- try{
-  const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-  Object.keys(data).forEach(id=>{
-   const el=document.getElementById(id);
-   if(el) el.value=data[id];
-  });
- }catch(e){}
-}
-window.addEventListener('load',()=>{
- loadFormData();
- validateStep1();
- validateStep2();
-});
-document.querySelectorAll('input,select,textarea').forEach(el=>{
- el.addEventListener('input',saveFormData);
- el.addEventListener('change',saveFormData);
-});
-window.addEventListener('beforeunload',saveFormData);
-
-document.getElementById('submitBtn').addEventListener('click',()=>{
- setTimeout(()=>localStorage.removeItem(STORAGE_KEY),1000);
-});
-
-document.getElementById('noidentitas').addEventListener('input',function(){
- this.value=this.value.replace(/[^A-Za-z0-9]/g,'');
-});
-
-document.getElementById('wa').setAttribute('inputmode','numeric');
 
 </script>
 
@@ -235,6 +197,16 @@ body{overflow-x:hidden;}
 .submit-btn{pointer-events:none;}
 .submit-btn.active{pointer-events:auto;}
 .summary b{color:#f7d774;}
+
+
+/* ===== V4 CLEAN BUILD ===== */
+.card{border:1px solid rgba(212,175,55,.18)}
+input,select,textarea{transition:.25s}
+input:invalid{border-color:#ef4444}
+.step{animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.progress-bar-fill{background:linear-gradient(90deg,#d4af37,#f7d774);border-radius:999px}
+.submit-btn:disabled{opacity:.7}
 
 </style>
 </head>
@@ -936,45 +908,6 @@ window.location.href = "success.html";
 
 
 
-/* ===== FINALL UPGRADE V2 ===== */
-const STORAGE_KEY='run2026_form';
-function saveFormData(){
- const data={};
- ['nama','jk','tempat','tanggal','identitas','noidentitas','email','wa','alamat','kategori','bib','size'].forEach(id=>{
-  const el=document.getElementById(id); if(el) data[id]=el.value;
- });
- localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
-}
-function loadFormData(){
- try{
-  const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'{}');
-  Object.keys(data).forEach(id=>{
-   const el=document.getElementById(id);
-   if(el) el.value=data[id];
-  });
- }catch(e){}
-}
-window.addEventListener('load',()=>{
- loadFormData();
- validateStep1();
- validateStep2();
-});
-document.querySelectorAll('input,select,textarea').forEach(el=>{
- el.addEventListener('input',saveFormData);
- el.addEventListener('change',saveFormData);
-});
-window.addEventListener('beforeunload',saveFormData);
-
-document.getElementById('submitBtn').addEventListener('click',()=>{
- setTimeout(()=>localStorage.removeItem(STORAGE_KEY),1000);
-});
-
-document.getElementById('noidentitas').addEventListener('input',function(){
- this.value=this.value.replace(/[^A-Za-z0-9]/g,'');
-});
-
-document.getElementById('wa').setAttribute('inputmode','numeric');
-
 </script>
 
 
@@ -1023,5 +956,16 @@ window.addEventListener('load',()=>{
 });
 </script>
 
+<script>
+(function(){
+const qs=id=>document.getElementById(id);
+const email=qs('email'); const wa=qs('wa');
+if(email){email.setAttribute('autocomplete','email')}
+if(wa){wa.setAttribute('maxlength','15')}
+['nama','tempat','bib'].forEach(id=>{const e=qs(id); if(e){e.addEventListener('blur',()=>e.value=e.value.trim())}});
+const oldShow=window.showStep;
+window.showStep=function(step){oldShow(step); const p=qs('progressFill'); if(p) p.style.width=(step*33.33)+'%';};
+})();
+</script>
 </body>
 </html>
