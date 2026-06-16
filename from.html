@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Form Pendaftaran - MITRA SWALAYAN KARANGANYAR RUN 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("YOUR_PUBLIC_KEY");
+</script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+min-height:100vh;
+}
+
+.banner{
+width:100%;
+height:260px;
+object-fit:cover;
+display:block;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:25px;
+}
+
+.timer-box{
+position:sticky;
+top:10px;
+z-index:99;
+background:#ef4444;
+padding:15px;
+border-radius:15px;
+text-align:center;
+font-size:22px;
+font-weight:700;
+margin-bottom:25px;
+box-shadow:0 0 25px rgba(239,68,68,.5);
+}
+
+.progress{
+display:flex;
+justify-content:center;
+gap:15px;
+margin-bottom:30px;
+}
+
+.step-indicator{
+width:45px;
+height:45px;
+border-radius:50%;
+background:#334155;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+}
+
+.step-indicator.active{
+background:#f97316;
+box-shadow:0 0 15px #f97316;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.step{
+display:none;
+}
+
+.step.active{
+display:block;
+}
+
+h2{
+margin-bottom:20px;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+label{
+display:block;
+margin-bottom:8px;
+font-weight:600;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#334155;
+color:white;
+font-size:15px;
+}
+
+textarea{
+resize:vertical;
+min-height:100px;
+}
+
+.btn{
+padding:15px 25px;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn-next{
+background:#f97316;
+color:white;
+}
+
+.btn-next:disabled{
+background:#475569;
+cursor:not-allowed;
+}
+
+.btn-back{
+background:#475569;
+color:white;
+}
+
+.button-group{
+display:flex;
+justify-content:space-between;
+margin-top:25px;
+}
+
+.summary{
+background:#0f172a;
+padding:20px;
+border-radius:15px;
+border:1px solid rgba(255,255,255,.1);
+line-height:1.8;
+}
+
+.payment-box{
+background:#1e40af;
+padding:20px;
+border-radius:15px;
+margin:20px 0;
+}
+
+.payment-link{
+display:inline-block;
+margin-top:10px;
+padding:12px 20px;
+background:#f97316;
+color:white;
+border-radius:12px;
+font-weight:700;
+text-decoration:none;
+}
+
+.checkbox-area{
+margin-top:20px;
+display:flex;
+gap:10px;
+align-items:flex-start;
+}
+
+.submit-btn{
+width:100%;
+margin-top:25px;
+padding:18px;
+font-size:18px;
+font-weight:700;
+border:none;
+border-radius:15px;
+background:#475569;
+color:white;
+cursor:not-allowed;
+transition:.4s;
+}
+
+.submit-btn.active{
+background:#22c55e;
+cursor:pointer;
+box-shadow:
+0 0 20px rgba(34,197,94,.8),
+0 0 40px rgba(34,197,94,.5);
+}
+
+.sizechart{
+width:100%;
+margin:20px 0;
+border-radius:15px;
+}
+
+.loading-screen{
+position:fixed;
+inset:0;
+background:rgba(15,23,42,.98);
+display:none;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+z-index:99999;
+}
+
+.spinner{
+width:90px;
+height:90px;
+border:8px solid rgba(255,255,255,.2);
+border-top:8px solid #f97316;
+border-radius:50%;
+animation:spin 1s linear infinite;
+margin-bottom:20px;
+}
+
+@keyframes spin{
+100%{
+transform:rotate(360deg);
+}
+}
+
+.loading-text{
+font-size:18px;
+text-align:center;
+}
+
+@media(max-width:768px){
+
+.banner{
+height:180px;
+}
+
+.button-group{
+flex-direction:column;
+gap:10px;
+}
+
+.btn{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+<body>
+  <!-- BANNER -->
+
+<img src="banner.png" class="banner">
+
+<div class="container">
+
+<div class="timer-box">
+⏳ Sisa Waktu Pengisian :
+<span id="timer">10:00</span>
+</div>
+
+<div class="progress">
+
+<div class="step-indicator active" id="i1">1</div>
+<div class="step-indicator" id="i2">2</div>
+<div class="step-indicator" id="i3">3</div>
+
+</div>
+
+<div class="card">
+
+<!-- STEP 1 -->
+
+<div class="step active" id="step1">
+
+<h2>Data Peserta</h2>
+
+<div class="form-group">
+<label>Nama Lengkap *</label>
+<input type="text" id="nama">
+</div>
+
+<div class="form-group">
+<label>Jenis Kelamin *</label>
+<select id="jk">
+<option value="">Pilih</option>
+<option>Pria</option>
+<option>Wanita</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Tempat Lahir *</label>
+<input type="text" id="tempat">
+</div>
+
+<div class="form-group">
+<label>Tanggal Lahir *</label>
+<input type="date" id="tanggal">
+</div>
+
+<div class="form-group">
+<label>Jenis Identitas *</label>
+<select id="identitas">
+
+<option value="">Pilih</option>
+<option>KTP</option>
+<option>SIM</option>
+<option>KARTU PELAJAR</option>
+<option>PASPOR</option>
+
+</select>
+</div>
+
+<div class="form-group">
+<label>Nomor Identitas *</label>
+<input type="text" id="noidentitas">
+</div>
+
+<div class="form-group">
+<label>E-Mail Aktif *</label>
+<input type="email" id="email">
+</div>
+
+<div class="form-group">
+<label>No Whatsapp *</label>
+<input type="tel" id="wa">
+</div>
+
+<div class="form-group">
+<label>Alamat / Domisili *</label>
+<textarea id="alamat"></textarea>
+</div>
+
+<div class="button-group">
+
+<div></div>
+
+<button
+class="btn btn-next"
+id="next1"
+disabled>
+
+Selanjutnya →
+
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 2 -->
+
+<div class="step" id="step2">
+
+<h2>Data Kategori & Jersey</h2>
+
+<div class="form-group">
+
+<label>Category *</label>
+
+<select id="kategori">
+
+<option value="">Pilih Category</option>
+
+<option>
+5K FUN RUN - Rp130.000
+</option>
+
+</select>
+
+</div>
+
+<div class="form-group">
+
+<label>Nama BIB *</label>
+
+<input
+type="text"
+id="bib">
+
+</div>
+
+<img
+src="sizechart.png"
+class="sizechart">
+
+<div class="form-group">
+
+<label>Size Jersey *</label>
+
+<select id="size">
+
+<option value="">Pilih Ukuran</option>
+
+<option>XS</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+<option>XXL</option>
+<option>XXXL</option>
+
+</select>
+
+</div>
+
+<div class="button-group">
+
+<button
+class="btn btn-back"
+onclick="prevStep()">
+
+← Kembali
+
+</button>
+
+<button
+class="btn btn-next"
+id="next2"
+disabled>
+
+Selanjutnya →
+
+</button>
+
+</div>
+
+</div>
+
+<!-- STEP 3 -->
+
+<div class="step" id="step3">
+
+<h2>Konfirmasi Data</h2>
+
+<div
+class="summary"
+id="summaryBox">
+
+</div>
+
+<div class="payment-box">
+
+<h3>
+Pembayaran
+</h3>
+
+<p>
+Klik tombol berikut untuk melakukan pembayaran:
+</p>
+
+<a
+href="https://pendaftaranonline.github.io/QR-PEMBAYARAN/"
+target="_blank"
+class="payment-link">
+
+Klik Untuk Pembayaran
+
+</a>
+
+</div>
+
+<div class="form-group">
+
+<label>
+Upload Bukti Pembayaran *
+</label>
+
+<input
+type="file"
+id="bukti"
+accept="image/*,.pdf">
+
+</div>
+
+<div class="checkbox-area">
+
+<input
+type="checkbox"
+id="agree">
+
+<label>
+
+Saya menyatakan seluruh data yang saya isi adalah benar dan dapat dipertanggungjawabkan.
+
+</label>
+
+</div>
+
+<button
+id="submitBtn"
+class="submit-btn">
+
+KIRIM PENDAFTARAN
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- LOADING -->
+
+<div
+class="loading-screen"
+id="loadingScreen">
+
+<div class="spinner"></div>
+
+<div class="loading-text">
+
+Memproses Pendaftaran...<br>
+
+Mohon Tunggu
+
+</div>
+
+</div>
+
+  <script>
+
+/* =========================
+   TIMER 10 MENIT
+========================= */
+
+let timeLeft = 600;
+
+const timer = document.getElementById("timer");
+
+const countdown = setInterval(() => {
+
+let minutes = Math.floor(timeLeft / 60);
+let seconds = timeLeft % 60;
+
+timer.innerHTML =
+String(minutes).padStart(2,"0")
++ ":"
++
+String(seconds).padStart(2,"0");
+
+if(timeLeft <= 0){
+
+clearInterval(countdown);
+
+window.location.href = "failed.html";
+
+}
+
+timeLeft--;
+
+},1000);
+
+
+/* =========================
+   STEP CONTROL
+========================= */
+
+function showStep(step){
+
+document.querySelectorAll(".step")
+.forEach(el=>el.classList.remove("active"));
+
+document.getElementById(
+"step"+step
+).classList.add("active");
+
+document.querySelectorAll(".step-indicator")
+.forEach(el=>el.classList.remove("active"));
+
+document.getElementById(
+"i"+step
+).classList.add("active");
+
+}
+
+function prevStep(){
+
+showStep(1);
+
+}
+
+
+/* =========================
+   VALIDASI STEP 1
+========================= */
+
+const step1Fields = [
+
+"nama",
+"jk",
+"tempat",
+"tanggal",
+"identitas",
+"noidentitas",
+"email",
+"wa",
+"alamat"
+
+];
+
+function validateStep1(){
+
+let valid = true;
+
+step1Fields.forEach(id=>{
+
+if(
+!document.getElementById(id).value.trim()
+){
+valid = false;
+}
+
+});
+
+document.getElementById("next1")
+.disabled = !valid;
+
+}
+
+step1Fields.forEach(id=>{
+
+document
+.getElementById(id)
+.addEventListener(
+"input",
+validateStep1
+);
+
+document
+.getElementById(id)
+.addEventListener(
+"change",
+validateStep1
+);
+
+});
+
+
+/* =========================
+   STEP 2
+========================= */
+
+const step2Fields = [
+
+"kategori",
+"bib",
+"size"
+
+];
+
+function validateStep2(){
+
+let valid = true;
+
+step2Fields.forEach(id=>{
+
+if(
+!document.getElementById(id).value.trim()
+){
+valid = false;
+}
+
+});
+
+document.getElementById("next2")
+.disabled = !valid;
+
+}
+
+step2Fields.forEach(id=>{
+
+document
+.getElementById(id)
+.addEventListener(
+"input",
+validateStep2
+);
+
+document
+.getElementById(id)
+.addEventListener(
+"change",
+validateStep2
+);
+
+});
+
+
+/* =========================
+   NEXT STEP
+========================= */
+
+document
+.getElementById("next1")
+.addEventListener("click",()=>{
+
+showStep(2);
+
+});
+
+document
+.getElementById("next2")
+.addEventListener("click",()=>{
+
+showStep(3);
+
+buildSummary();
+
+});
+
+
+/* =========================
+   SUMMARY DATA
+========================= */
+
+function buildSummary(){
+
+const html = `
+
+<b>Nama Lengkap :</b>
+${nama.value}
+<br><br>
+
+<b>Jenis Kelamin :</b>
+${jk.value}
+<br><br>
+
+<b>Tempat/Tanggal Lahir :</b>
+${tempat.value},
+${tanggal.value}
+<br><br>
+
+<b>Identitas :</b>
+${identitas.value}
+<br><br>
+
+<b>Nomor Identitas :</b>
+${noidentitas.value}
+<br><br>
+
+<b>Email :</b>
+${email.value}
+<br><br>
+
+<b>Whatsapp :</b>
+${wa.value}
+<br><br>
+
+<b>Alamat :</b>
+${alamat.value}
+<br><br>
+
+<b>Category :</b>
+${kategori.value}
+<br><br>
+
+<b>Nama BIB :</b>
+${bib.value}
+<br><br>
+
+<b>Size Jersey :</b>
+${size.value}
+
+`;
+
+document.getElementById(
+"summaryBox"
+).innerHTML = html;
+
+}
+
+
+/* =========================
+   SUBMIT VALIDATION
+========================= */
+
+const bukti =
+document.getElementById("bukti");
+
+const agree =
+document.getElementById("agree");
+
+const submitBtn =
+document.getElementById("submitBtn");
+
+function validateSubmit(){
+
+if(
+bukti.files.length > 0
+&&
+agree.checked
+){
+
+submitBtn.classList.add("active");
+
+}else{
+
+submitBtn.classList.remove("active");
+
+}
+
+}
+
+bukti.addEventListener(
+"change",
+validateSubmit
+);
+
+agree.addEventListener(
+"change",
+validateSubmit
+);
+
+
+/* =========================
+   EMAILJS PLACEHOLDER
+========================= */
+
+function sendEmail(){
+
+emailjs.send(
+
+"YOUR_SERVICE_ID",
+
+"YOUR_TEMPLATE_ID",
+
+{
+nama:nama.value,
+email:email.value,
+whatsapp:wa.value,
+kategori:kategori.value,
+bib:bib.value,
+size:size.value
+}
+
+)
+.then(function(){
+
+console.log(
+"Email berhasil dikirim"
+);
+
+})
+.catch(function(error){
+
+console.log(error);
+
+});
+
+}
+
+
+/* =========================
+   SUBMIT
+========================= */
+
+submitBtn.addEventListener(
+"click",
+function(){
+
+if(
+!bukti.files.length
+||
+!agree.checked
+){
+
+return;
+
+}
+
+sendEmail();
+
+document.getElementById(
+"loadingScreen"
+).style.display="flex";
+
+setTimeout(()=>{
+
+window.location.href =
+"success.html";
+
+},60000);
+
+});
+
+
+</script>
+
+</body>
+</html>
