@@ -1,1 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>QRIS Payment Gateway</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    overflow:hidden;
+}
+
+.container{
+    width:100%;
+    max-width:650px;
+    padding:25px;
+    text-align:center;
+}
+
+/* TIMER */
+
+.timer-box{
+    margin-bottom:30px;
+}
+
+.timer-label{
+    font-size:14px;
+    letter-spacing:2px;
+    color:#bdbdbd;
+    margin-bottom:10px;
+    text-transform:uppercase;
+}
+
+#countdown{
+    font-size:64px;
+    font-weight:900;
+    color:#00ff9d;
+    text-shadow:
+    0 0 10px #00ff9d,
+    0 0 20px #00ff9d,
+    0 0 40px #00ff9d,
+    0 0 60px #00ff9d;
+}
+
+/* CARD */
+
+.payment-card{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:28px;
+    padding:35px;
+    backdrop-filter:blur(10px);
+    box-shadow:
+    0 0 30px rgba(0,255,170,.15),
+    0 0 60px rgba(0,255,170,.08);
+}
+
+.title{
+    font-size:28px;
+    font-weight:800;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#bfbfbf;
+    margin-bottom:30px;
+}
+
+/* QR FRAME */
+
+.qr-frame{
+    width:320px;
+    max-width:100%;
+    margin:auto;
+    padding:18px;
+    border-radius:25px;
+    background:#fff;
+    position:relative;
+
+    box-shadow:
+    0 0 20px #00ffcc,
+    0 0 40px #00ffcc,
+    0 0 80px rgba(0,255,204,.8),
+    0 0 120px rgba(0,255,204,.4);
+}
+
+.qr-frame img{
+    width:100%;
+    display:block;
+    border-radius:15px;
+}
+
+/* INFO */
+
+.info{
+    margin-top:28px;
+    text-align:left;
+    color:#d8d8d8;
+    line-height:1.8;
+}
+
+.info h3{
+    color:#00ffcc;
+    margin-bottom:12px;
+    text-align:center;
+}
+
+.info ul{
+    padding-left:20px;
+}
+
+.info li{
+    margin-bottom:8px;
+}
+
+/* BUTTON */
+
+#paidBtn{
+    display:none;
+    margin-top:25px;
+    padding:16px 28px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:700;
+    color:#000;
+    background:#00ff9d;
+
+    box-shadow:
+    0 0 15px #00ff9d,
+    0 0 30px #00ff9d;
+
+    transition:.3s;
+}
+
+#paidBtn:hover{
+    transform:translateY(-2px);
+}
+
+.footer-note{
+    margin-top:18px;
+    font-size:13px;
+    color:#8f8f8f;
+}
+
+@media(max-width:600px){
+
+    #countdown{
+        font-size:50px;
+    }
+
+    .payment-card{
+        padding:25px;
+    }
+
+    .title{
+        font-size:22px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="timer-box">
+        <div class="timer-label">
+            Batas Waktu Pembayaran
+        </div>
+
+        <div id="countdown">
+            30
+        </div>
+    </div>
+
+    <div class="payment-card">
+
+        <div class="title">
+            Secure QRIS Payment
+        </div>
+
+        <div class="subtitle">
+            Silakan lakukan pembayaran dengan memindai kode QR di bawah ini.
+        </div>
+
+        <div class="qr-frame">
+            <img src="qris.png" alt="QRIS Payment">
+        </div>
+
+        <button id="paidBtn">
+            ✅ Saya Telah Melakukan Pembayaran
+        </button>
+
+        <div class="info">
+            <h3>Petunjuk Pembayaran QRIS</h3>
+
+            <ul>
+                <li>Buka aplikasi Mobile Banking, E-Wallet, atau aplikasi yang mendukung QRIS.</li>
+
+                <li>Pilih menu <b>Scan QR / QRIS Payment</b>.</li>
+
+                <li>Arahkan kamera ke kode QR yang ditampilkan pada halaman ini.</li>
+
+                <li>Periksa nominal pembayaran yang muncul pada aplikasi Anda.</li>
+
+                <li>Pastikan data transaksi telah sesuai sebelum melanjutkan pembayaran.</li>
+
+                <li>Masukkan PIN atau metode verifikasi yang diminta oleh aplikasi pembayaran Anda.</li>
+
+                <li>Setelah transaksi berhasil, klik tombol <b>“Saya Telah Melakukan Pembayaran”</b>.</li>
+            </ul>
+        </div>
+
+        <div class="footer-note">
+            Sistem akan menutup sesi pembayaran secara otomatis apabila batas waktu berakhir.
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+let timeLeft = 30;
+
+const countdown = document.getElementById("countdown");
+const paidBtn = document.getElementById("paidBtn");
+
+const timer = setInterval(() => {
+
+    timeLeft--;
+
+    countdown.textContent = timeLeft;
+
+    if(timeLeft <= 10){
+        paidBtn.style.display = "inline-block";
+    }
+
+    if(timeLeft <= 0){
+        clearInterval(timer);
+        window.location.href = "failed.html";
+    }
+
+},1000);
+
+paidBtn.addEventListener("click",function(){
+
+    if(document.referrer){
+        history.back();
+    }else{
+        window.location.href = "index.html";
+    }
+
+});
+</script>
+
+</body>
+</html>
