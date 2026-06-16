@@ -11,172 +11,156 @@
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-:root{
-    --bg:#000000;
-    --card:#0d0d0d;
-    --text:#ffffff;
-    --muted:#8a8a8a;
-    --border:rgba(255,255,255,.08);
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    font-family:'Inter',sans-serif;
-    background:#000;
-    color:#fff;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+background:#000;
+color:#fff;
+font-family:'Inter',sans-serif;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:25px;
 }
 
 .container{
-    width:100%;
-    max-width:700px;
-    text-align:center;
+width:100%;
+max-width:700px;
+text-align:center;
 }
 
 /* TIMER */
 
-.timer-label{
-    color:#7a7a7a;
-    font-size:11px;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    margin-bottom:10px;
+.label{
+font-size:11px;
+letter-spacing:4px;
+color:#666;
+margin-bottom:10px;
 }
 
 #timer{
-    font-size:clamp(50px,8vw,80px);
-    font-weight:800;
-    letter-spacing:-2px;
-    margin-bottom:45px;
-
-    color:#ffffff;
-
-    text-shadow:
-    0 0 10px rgba(255,255,255,.15);
+font-size:clamp(54px,8vw,84px);
+font-weight:800;
+letter-spacing:-3px;
+margin-bottom:40px;
+transition:.3s;
 }
 
 /* TITLE */
 
 .title{
-    margin-top:30px;
-    font-size:clamp(24px,4vw,34px);
-    font-weight:700;
-    letter-spacing:-1px;
+font-size:clamp(26px,4vw,36px);
+font-weight:700;
+margin-bottom:10px;
 }
 
 .subtitle{
-    margin-top:10px;
-    color:var(--muted);
-    line-height:1.8;
-    font-size:15px;
+color:#9c9c9c;
+font-size:15px;
+line-height:1.8;
+margin-bottom:35px;
 }
 
 /* QR */
 
-.qr-wrapper{
-    display:flex;
-    justify-content:center;
+.qr-wrap{
+display:flex;
+justify-content:center;
+margin-bottom:30px;
 }
 
 .qr-box{
-    background:#fff;
-    padding:18px;
-    border-radius:22px;
+background:#fff;
+padding:16px;
+border-radius:22px;
 
-    border:1px solid rgba(255,255,255,.04);
-
-    box-shadow:
-    0 0 0 1px rgba(255,255,255,.04),
-    0 10px 40px rgba(255,255,255,.05);
+box-shadow:
+0 0 0 1px rgba(255,255,255,.05),
+0 10px 40px rgba(255,255,255,.08);
 }
 
 .qr-box img{
-    display:block;
-    width:min(320px,75vw);
-    height:auto;
-    image-rendering:auto;
-    border-radius:10px;
+width:min(340px,80vw);
+display:block;
+border-radius:12px;
+}
+
+/* STEPS */
+
+.steps{
+margin-top:25px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+.step{
+padding:18px 12px;
+border:1px solid rgba(255,255,255,.08);
+border-radius:16px;
+background:rgba(255,255,255,.02);
+}
+
+.step-number{
+font-size:22px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.step-text{
+font-size:13px;
+color:#bdbdbd;
+line-height:1.6;
 }
 
 /* BUTTON */
 
 #paidBtn{
-    display:none;
+display:none;
+margin-top:30px;
 
-    margin-top:28px;
+padding:14px 24px;
 
-    border:none;
-    cursor:pointer;
+border:none;
+border-radius:12px;
 
-    padding:14px 24px;
+background:#fff;
+color:#000;
 
-    border-radius:12px;
+font-weight:700;
+font-size:14px;
 
-    font-size:14px;
-    font-weight:600;
-
-    background:#ffffff;
-    color:#000;
-
-    transition:.25s ease;
+cursor:pointer;
+transition:.25s;
 }
 
 #paidBtn:hover{
-    transform:translateY(-2px);
+transform:translateY(-2px);
 }
 
-/* GUIDE */
-
-.guide{
-    margin-top:40px;
-
-    background:rgba(255,255,255,.03);
-
-    border:1px solid var(--border);
-
-    border-radius:20px;
-
-    padding:24px;
-
-    text-align:left;
+.footer{
+margin-top:25px;
+font-size:12px;
+color:#666;
 }
 
-.guide h3{
-    text-align:center;
-    margin-bottom:18px;
-    font-size:16px;
+@media(max-width:768px){
+
+.steps{
+grid-template-columns:repeat(2,1fr);
 }
 
-.guide ul{
-    padding-left:20px;
-    color:#d5d5d5;
-    line-height:1.9;
 }
 
-.note{
-    margin-top:18px;
-    text-align:center;
-    color:#7d7d7d;
-    font-size:12px;
+@media(max-width:480px){
+
+.steps{
+grid-template-columns:1fr;
 }
-
-@media(max-width:600px){
-
-    .guide{
-        padding:18px;
-    }
-
-    .subtitle{
-        font-size:14px;
-    }
 
 }
 
@@ -186,114 +170,127 @@ body{
 
 <div class="container">
 
-    <div class="timer-label">
-        BATAS WAKTU PEMBAYARAN
-    </div>
+<div class="label">
+BATAS WAKTU PEMBAYARAN
+</div>
 
-    <div id="timer">
-        00:30
-    </div>
+<div id="timer">
+00:30
+</div>
 
-    <div class="qr-wrapper">
+<div class="title">
+PEMBAYARAN QRIS
+</div>
 
-        <div class="qr-box">
+<div class="subtitle">
+Scan kode QR menggunakan aplikasi Mobile Banking atau E-Wallet yang mendukung QRIS.
+</div>
 
-            <img src="qris-pembayaran.png" alt="QRIS">
+<div class="qr-wrap">
+<div class="qr-box">
+<img src="qris-pembayaran.png" alt="QRIS">
+</div>
+</div>
 
-        </div>
+<button id="paidBtn">
+✓ Saya Telah Melakukan Pembayaran
+</button>
 
-    </div>
+<div class="steps">
 
-    <div class="title">
-        PEMBAYARAN QRIS
-    </div>
+<div class="step">
+<div class="step-number">①</div>
+<div class="step-text">
+Buka aplikasi pembayaran Anda
+</div>
+</div>
 
-    <div class="subtitle">
-        Scan kode QR menggunakan aplikasi Mobile Banking atau E-Wallet yang mendukung QRIS.
-    </div>
+<div class="step">
+<div class="step-number">②</div>
+<div class="step-text">
+Scan kode QR yang ditampilkan
+</div>
+</div>
 
-    <button id="paidBtn">
-        ✓ Saya Telah Melakukan Pembayaran
-    </button>
+<div class="step">
+<div class="step-number">③</div>
+<div class="step-text">
+Selesaikan transaksi pembayaran
+</div>
+</div>
 
-    <div class="guide">
+<div class="step">
+<div class="step-number">④</div>
+<div class="step-text">
+Klik tombol konfirmasi pembayaran
+</div>
+</div>
 
-        <h3>Petunjuk Pembayaran</h3>
+</div>
 
-        <ul>
-            <li>Buka aplikasi Mobile Banking atau E-Wallet.</li>
-            <li>Pilih menu Scan QR atau QRIS.</li>
-            <li>Arahkan kamera ke kode QR di atas.</li>
-            <li>Selesaikan transaksi sesuai instruksi aplikasi.</li>
-            <li>Setelah pembayaran berhasil, klik tombol konfirmasi pembayaran.</li>
-        </ul>
-
-        <div class="note">
-            Halaman akan ditutup otomatis apabila waktu pembayaran berakhir.
-        </div>
-
-    </div>
+<div class="footer">
+Halaman akan berakhir otomatis ketika waktu pembayaran habis.
+</div>
 
 </div>
 
 <script>
 
-let totalSeconds = 30;
+let total = 30;
 
-const timer = document.getElementById('timer');
-const paidBtn = document.getElementById('paidBtn');
+const timer = document.getElementById("timer");
+const btn = document.getElementById("paidBtn");
 
 function updateTimer(){
 
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
+const m = Math.floor(total/60);
+const s = total%60;
 
-    timer.textContent =
-        String(minutes).padStart(2,'0')
-        + ':' +
-        String(seconds).padStart(2,'0');
+timer.textContent =
+String(m).padStart(2,'0')
++
+":"
++
+String(s).padStart(2,'0');
 
 }
 
 updateTimer();
 
-const countdown = setInterval(() => {
+const countdown = setInterval(()=>{
 
-    totalSeconds--;
+total--;
 
-    updateTimer();
+updateTimer();
 
-    if(totalSeconds <= 10){
-        paidBtn.style.display = "inline-block";
-    }
+if(total <= 10){
+btn.style.display = "inline-block";
+timer.style.color = "#ffcc00";
+}
 
-    if(totalSeconds <= 10){
-        timer.style.color = "#ffcc00";
-    }
+if(total <= 5){
+timer.style.color = "#ff5c5c";
+}
 
-    if(totalSeconds <= 5){
-        timer.style.color = "#ff5757";
-    }
+if(total <= 0){
 
-    if(totalSeconds <= 0){
+clearInterval(countdown);
 
-        clearInterval(countdown);
+window.location.href="failed.html";
 
-        window.location.href = "failed.html";
-
-    }
+}
 
 },1000);
 
-paidBtn.addEventListener('click', () => {
+btn.addEventListener("click",()=>{
 
-    alert(
-        "Pembayaran berhasil dikonfirmasi.\n\nSilakan kembali ke halaman pendaftaran sebelumnya."
-    );
+alert(
+"Pembayaran telah dikonfirmasi.\n\nSilakan kembali ke halaman sebelumnya untuk melanjutkan proses."
+);
 
-    try{
-        window.close();
-    }catch(e){}
+try{
+window.close();
+}catch(e){}
 
 });
 
