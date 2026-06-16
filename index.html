@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MITRA SWALAYAN KARANGANYAR RUN 2026</title>
+
+<meta name="description" content="MITRA SWALAYAN KARANGANYAR RUN 2026 - Fun Run 5K Anniversary Event">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0f172a;
+color:white;
+overflow-x:hidden;
+}
+
+a{
+text-decoration:none;
+}
+
+.hero{
+position:relative;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:30px;
+}
+
+.hero::before{
+content:'';
+position:absolute;
+inset:0;
+background:url('assets/banner.png') center center/cover;
+filter:brightness(.25);
+z-index:-2;
+}
+
+.hero::after{
+content:'';
+position:absolute;
+inset:0;
+background:linear-gradient(
+180deg,
+rgba(15,23,42,.2),
+rgba(15,23,42,.95)
+);
+z-index:-1;
+}
+
+.container{
+width:100%;
+max-width:1200px;
+margin:auto;
+}
+
+.logo{
+width:180px;
+display:block;
+margin:auto;
+margin-bottom:20px;
+}
+
+.hero-content{
+text-align:center;
+}
+
+.hero h1{
+font-size:60px;
+font-weight:800;
+line-height:1.1;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:18px;
+color:#cbd5e1;
+max-width:700px;
+margin:auto;
+margin-bottom:30px;
+}
+
+.countdown{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin:40px 0;
+}
+
+.time-box{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.1);
+padding:20px;
+border-radius:20px;
+min-width:120px;
+}
+
+.time-box h2{
+font-size:40px;
+color:#facc15;
+}
+
+.time-box span{
+font-size:14px;
+color:#cbd5e1;
+}
+
+.btn-register{
+display:inline-block;
+padding:18px 45px;
+border-radius:50px;
+background:linear-gradient(
+135deg,
+#f97316,
+#ea580c
+);
+color:white;
+font-weight:700;
+font-size:18px;
+box-shadow:
+0 0 20px rgba(249,115,22,.5),
+0 0 40px rgba(249,115,22,.3);
+transition:.3s;
+}
+
+.btn-register:hover{
+transform:translateY(-3px);
+}
+
+.section{
+padding:80px 20px;
+}
+
+.section-title{
+text-align:center;
+font-size:40px;
+margin-bottom:50px;
+font-weight:800;
+}
+
+.card-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
+}
+
+.card h3{
+margin-bottom:10px;
+color:#facc15;
+}
+
+.info-box{
+background:#1e293b;
+padding:30px;
+border-radius:20px;
+margin-top:20px;
+}
+
+.info-box p{
+margin-bottom:10px;
+}
+
+.footer{
+padding:30px;
+text-align:center;
+background:#020617;
+color:#94a3b8;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:38px;
+}
+
+.time-box{
+min-width:90px;
+}
+
+.time-box h2{
+font-size:28px;
+}
+
+.section-title{
+font-size:30px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+<div class="container">
+
+<div class="hero-content">
+
+<img src="assets/logo.png" class="logo">
+
+<h1>
+MITRA SWALAYAN<br>
+KARANGANYAR RUN 2026
+</h1>
+
+<p>
+Rayakan Anniversary Mitra Swalayan Karanganyar
+dengan pengalaman Fun Run 5K yang seru,
+sehat, dan penuh hadiah menarik.
+</p>
+
+<div class="countdown">
+
+<div class="time-box">
+<h2 id="days">00</h2>
+<span>Hari</span>
+</div>
+
+<div class="time-box">
+<h2 id="hours">00</h2>
+<span>Jam</span>
+</div>
+
+<div class="time-box">
+<h2 id="minutes">00</h2>
+<span>Menit</span>
+</div>
+
+<div class="time-box">
+<h2 id="seconds">00</h2>
+<span>Detik</span>
+</div>
+
+</div>
+
+<a href="form.html" class="btn-register">
+DAFTAR SEKARANG
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+DETAIL ACARA
+</h2>
+
+<div class="info-box">
+
+<p><strong>Tanggal :</strong> Minggu, 20 September 2026</p>
+
+<p><strong>Start :</strong> 06.15 WIB</p>
+
+<p><strong>Lokasi :</strong> Mitra Swalayan Karanganyar</p>
+
+<p><strong>Kategori :</strong> 5K Fun Run</p>
+
+<p><strong>Biaya :</strong> Rp130.000</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+BENEFIT PESERTA
+</h2>
+
+<div class="card-grid">
+
+<div class="card">
+<h3>👕 Jersey Exclusive</h3>
+<p>Jersey event resmi untuk seluruh peserta.</p>
+</div>
+
+<div class="card">
+<h3>🏅 Finisher Medal</h3>
+<p>Medali finisher eksklusif.</p>
+</div>
+
+<div class="card">
+<h3>🔢 BIB Number</h3>
+<p>Nomor peserta resmi.</p>
+</div>
+
+<div class="card">
+<h3>🎁 Goodie Bag</h3>
+<p>Berbagai merchandise menarik.</p>
+</div>
+
+<div class="card">
+<h3>🥤 Refreshment</h3>
+<p>Snack dan minuman setelah finish.</p>
+</div>
+
+<div class="card">
+<h3>🚰 Water Station</h3>
+<p>Titik air minum selama rute berlangsung.</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<div class="container">
+
+<h2 class="section-title">
+DOORPRIZE MENARIK
+</h2>
+
+<div class="card-grid">
+
+<div class="card">🚲 Sepeda Lipat</div>
+<div class="card">📺 TV LED</div>
+<div class="card">🧺 Mesin Cuci</div>
+<div class="card">🧊 Kulkas</div>
+<div class="card">🍚 Magic Com</div>
+<div class="card">🌀 Kipas Angin</div>
+
+</div>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+MITRA SWALAYAN KARANGANYAR RUN 2026
+
+</footer>
+
+<script>
+
+const targetDate = new Date(
+"September 20, 2026 06:15:00"
+).getTime();
+
+setInterval(() => {
+
+const now = new Date().getTime();
+
+const distance = targetDate - now;
+
+const days =
+Math.floor(distance / (1000*60*60*24));
+
+const hours =
+Math.floor(
+(distance % (1000*60*60*24))
+/
+(1000*60*60)
+);
+
+const minutes =
+Math.floor(
+(distance % (1000*60*60))
+/
+(1000*60)
+);
+
+const seconds =
+Math.floor(
+(distance % (1000*60))
+/
+1000
+);
+
+document.getElementById("days").innerHTML = days;
+document.getElementById("hours").innerHTML = hours;
+document.getElementById("minutes").innerHTML = minutes;
+document.getElementById("seconds").innerHTML = seconds;
+
+},1000);
+
+</script>
+
+</body>
+</html>
